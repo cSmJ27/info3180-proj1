@@ -49,7 +49,8 @@ def add_profile():
 
 @app.route('/profiles/')
 def list_profiles():
-  return "list all profiles"
+  profiles = Profile.query.all()
+  return render_template('list_profiles.html', profiles=profiles)
 
 @app.route('/profile/<int:id>')
 def view_profile(id):
