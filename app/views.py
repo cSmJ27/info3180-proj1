@@ -9,7 +9,7 @@ This file creates your application.
 from app import app
 from flask import render_template, request, redirect, url_for
 from flask.ext.wtf import Form
-from wtforms.fields import TextField
+from wtforms.fields import TextField, IntegerField, SelectField, FileField
 from wtforms.validators import Required, Email
 
 from app import db
@@ -19,7 +19,9 @@ from app.models import Profile
 class UserProfileForm(Form):
   firstname = TextField('Firstname', validators=[Required()])
   lastname = TextField('Lastname', validators=[Required()])
-  image = TextField('Image', validators=[Required(), Email()])
+  age = IntegerField('Age', validators=[Required()])
+  sex = SelectField(choices=[('male', 'Male'), ('female', 'Female')], validators=[Required()])
+  image = FileField(u'Image File', [validators.regexp(u'^[^/\\]\.jpg$')])
 
 
 ###
@@ -54,7 +56,8 @@ def list_profiles():
 
 @app.route('/profile/<int:id>')
 def view_profile(id):
-  return "profile {}".format(id)
+  profile = Profile.query.get(id)
+  return render_template('view_profile.html', profile=profile)
 
 @app.route('/about/')
 def about():

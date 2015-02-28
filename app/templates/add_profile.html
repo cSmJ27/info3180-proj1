@@ -7,8 +7,12 @@
 {% block main %}
 <div class="container">
   <form action="{{ url_for('add_profile') }}" method="post">
-    firstname: {{ form.firstname }}<br />
-    lastname: {{ form.lastname }}<br />
+    Enter information for user profile:<br><br>
+    Firstname: {{ form.firstname }}<br><br>
+    Lastname: {{ form.lastname }}<br><br>
+    Age: {{ form.age }}<br><br>
+    Sex: {{ form.sex }}<br><br>
+    Image: {{ form.image }}<br><br>
     <input type="submit" />
   </form>
 </div>
